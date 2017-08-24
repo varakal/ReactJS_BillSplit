@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getPratheekValue,getShreyasValue,getVinayValue,getVivekValue,addValue} from './data';
+import {getPratheekValue,getShreyasValue,getVinayValue,getVivekValue,addValue, getitemArray, getVivArray, getVinArray, getPraArray, getShrArray} from './data';
 import logo from './logo.svg';
 import './App.css';
 
@@ -90,6 +90,19 @@ this.setState({vivdetails});
 
   render() {
     var x=<div>PRATHEEK = {this.state.pratdetails}<br/>SHREYAS = {this.state.shrdetails}<br/>VINAY = {this.state.vindetails}<br/>VIVEK = {this.state.vivdetails}<br/></div>
+    var tableheader = <tr><th>Item</th><th>Pratheek</th><th>Shreyas</th><th>Vinay</th><th>Vivek</th></tr>
+    var itemarray = getitemArray();
+    var vivarray = getVivArray();
+    var vinarray = getVinArray();
+    var praarray = getPraArray();
+    var shrarray = getShrArray();
+
+    var tablebody = [];
+    for(var i=0;i<itemarray.length;i++)
+    {
+      var element = <tr><td>{itemarray[i]}</td><td>{praarray[i]}</td><td>{shrarray[i]}</td><td>{vinarray[i]}</td><td>{vivarray[i]}</td></tr>
+      tablebody.push(element);
+    }
     return (
       <div className="App">
         <div>
@@ -122,7 +135,9 @@ PRATHEEK : <input
         TAX2 : <input type="text" value={this.tax2} onChange={ (e) => this.handleChange(e, 'tax2') } /><br/><br/>
         <button onClick={this.addTax}> ADD TAX </button><br/><br/>
         {x}
-        </div>
+        </div><br/>
+{tableheader}
+{tablebody}
       </div>
     );
   }
