@@ -28,11 +28,11 @@ if (viv==1)
   vive+=value;
 }
 
-itemarr.push(item);
-pratarr.push(pra);
-shrarr.push(shr);
-vinarr.push(vin);
-vivarr.push(viv);
+itemarr.push(parseFloat(item));
+pratarr.push(parseFloat(pra));
+shrarr.push(parseFloat(shr));
+vinarr.push(parseFloat(vin));
+vivarr.push(parseFloat(viv));
 
 }
 
@@ -70,4 +70,31 @@ export function getVinArray(){
 
 export function getVivArray(){
   return vivarr;
+}
+
+export function removeItem(){
+
+
+  var removingValue = itemarr[itemarr.length-1] / (pratarr[itemarr.length-1]+vivarr[itemarr.length-1]+vinarr[itemarr.length-1]+shrarr[itemarr.length-1])
+  if (pratarr[itemarr.length-1]==1)
+ {
+   prat-=removingValue;
+ }
+ if (shrarr[itemarr.length-1] == 1){
+   shre-=removingValue;
+ }
+ if (vinarr[itemarr.length-1]==1){
+   vina-=removingValue;
+ }
+ if (vivarr[itemarr.length-1]==1)
+ {
+   vive-=removingValue;
+ }
+
+ itemarr.pop();
+ pratarr.pop();
+ shrarr.pop();
+ vinarr.pop();
+ vivarr.pop();
+
 }

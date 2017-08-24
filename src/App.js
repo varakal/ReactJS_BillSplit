@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {getPratheekValue,getShreyasValue,getVinayValue,getVivekValue,addValue, getitemArray, getVivArray, getVinArray, getPraArray, getShrArray} from './data';
+import {getPratheekValue,getShreyasValue,getVinayValue,getVivekValue,addValue, getitemArray, getVivArray, getVinArray, getPraArray, getShrArray, removeItem} from './data';
 import logo from './logo.svg';
 import './App.css';
+
 
 class App extends Component {
   constructor(props){
@@ -21,12 +22,17 @@ class App extends Component {
        pracheck: false,
        shrcheck: false,
        vincheck: false,
-       vivcheck: false
+       vivcheck: false,
+       itemarray: '',
+       praarray: '',
+       vivarray: '',
+       vinarray: ''
      };
      this.addVal=this.addVal.bind(this);
      this.handleChange = this.handleChange.bind(this);
      this.addTax = this.addTax.bind(this);
      this.handleInputChange = this.handleInputChange.bind(this);
+     this.remVal = this.remVal.bind(this);
   }
 
   addVal(){
@@ -54,6 +60,31 @@ class App extends Component {
   this.setState({shrcheck: false});
   this.setState({vincheck: false});
   this.setState({vivcheck: false});
+
+  }
+
+  remVal(){
+removeItem();
+const itemarray = getitemArray();
+const praarray = getPraArray();
+const shrarray = getShrArray();
+const vinarray = getVinArray();
+const vivarray = getVivArray();
+
+this.setState({itemarray});
+this.setState({praarray});
+this.setState({shrarray});
+this.setState({vinarray});
+this.setState({vivarray});
+
+const pratdetails= getPratheekValue();
+this.setState({pratdetails});
+const shrdetails= getShreyasValue();
+this.setState({shrdetails});
+const vindetails= getVinayValue();
+this.setState({vindetails});
+const vivdetails= getVivekValue();
+this.setState({vivdetails});
 
   }
 
@@ -89,18 +120,19 @@ this.setState({vivdetails});
   }
 
   render() {
+
     var x=<div>PRATHEEK = {this.state.pratdetails}<br/>SHREYAS = {this.state.shrdetails}<br/>VINAY = {this.state.vindetails}<br/>VIVEK = {this.state.vivdetails}<br/></div>
     var tableheader = <tr><th>Item</th><th>Pratheek</th><th>Shreyas</th><th>Vinay</th><th>Vivek</th></tr>
-    var itemarray = getitemArray();
-    var vivarray = getVivArray();
-    var vinarray = getVinArray();
-    var praarray = getPraArray();
-    var shrarray = getShrArray();
+    this.state.itemarray = getitemArray();
+    this.state.vivarray = getVivArray();
+    this.state.vinarray = getVinArray();
+    this.state.praarray = getPraArray();
+    this.state.shrarray = getShrArray();
 
     var tablebody = [];
-    for(var i=0;i<itemarray.length;i++)
+    for(var i=0;i<this.state.itemarray.length;i++)
     {
-      var element = <tr><td>{itemarray[i]}</td><td>{praarray[i]}</td><td>{shrarray[i]}</td><td>{vinarray[i]}</td><td>{vivarray[i]}</td></tr>
+      var element = <tr><td>{this.state.itemarray[i]}</td><td>{this.state.praarray[i]}</td><td>{this.state.shrarray[i]}</td><td>{this.state.vinarray[i]}</td><td>{this.state.vivarray[i]}</td></tr>
       tablebody.push(element);
     }
     return (
@@ -129,6 +161,7 @@ PRATHEEK : <input
                                                 onChange={ (e) => this.handleInputChange(e, 'vivcheck') } /><br/>
 
                                                 <button onClick={this.addVal}> ADD VALUE </button><br/><br/>
+                                                <button onClick={this.remVal}> REMOVE VALUE </button><br/><br/>
 
 
         TAX1 : <input type="text" value={this.tax1} onChange={ (e) => this.handleChange(e, 'tax1') } /><br/>
@@ -136,8 +169,10 @@ PRATHEEK : <input
         <button onClick={this.addTax}> ADD TAX </button><br/><br/>
         {x}
         </div><br/>
+        <table className = "tablereact" >
 {tableheader}
 {tablebody}
+</table>
       </div>
     );
   }
